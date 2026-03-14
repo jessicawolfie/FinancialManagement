@@ -93,6 +93,9 @@ com.example.controlefinanceiro
 
 ---
 
+ScreenShots
+
+
 ## 🏗 Decisões Técnicas
 
 ### 1. Jetpack Compose em vez de XML
@@ -178,4 +181,4 @@ A barra de navegação inferior só é exibida nas telas principais (Dashboard, 
 
 ---
 
-*Desenvolvido como parte da Formação Android — Desafio 3*
+*Desenvolvido por Jessica Cafezeiro como parte da Formação Android — Desafio 3*
