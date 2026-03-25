@@ -22,5 +22,5 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "ControleFinanceiro"
+rootProject.name = "Financial Management"
 include(":app")

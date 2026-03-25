@@ -6,11 +6,11 @@ plugins {
 }
 
 android {
-    namespace = "com.example.controlefinanceiro"
+    namespace = "com.example.financialmanagement"
     compileSdk = 35
 
     defaultConfig {
-        applicationId = "com.example.controlefinanceiro"
+        applicationId = "com.example.financialmanagement"
         minSdk = 26
         targetSdk = 35
         versionCode = 1
