@@ -1,185 +1,187 @@
-# 💰 Controle Financeiro
+# 💰 Finance Control
 
-Aplicativo Android de controle financeiro pessoal desenvolvido como parte da **Formação Android — Desafio 3**.
-
----
-
-## 📱 Descrição
-
-O **Controle Financeiro** é um app que permite ao usuário registrar, visualizar e analisar suas receitas e despesas com persistência local de dados. O grande objetivo do desafio foi a transição do armazenamento em memória para um banco de dados real no dispositivo, utilizando **Room Database**.
-
-### Funcionalidades implementadas
-
-- Registro de receitas e despesas com categoria, conta, data e observação
-- Visualização do saldo atual, total de receitas e total de despesas no Dashboard
-- Listagem de transações com filtro por tipo (Todas / Receitas / Despesas)
-- Edição e exclusão de transações existentes
-- Relatórios com total gasto por categoria e barra de progresso percentual
-- Dados iniciais populados automaticamente (categorias e contas padrão)
-- Persistência completa de dados com Room Database
+Personal finance control Android application developed as part of **Android Training — Challenge 3**.
 
 ---
 
-## 🗂 Estrutura do Projeto
+## 📱 Description
+
+**Finance Control** is an app that allows users to register, view, and analyze income and expenses with local data persistence. The main goal of this challenge was the transition from in-memory storage to a real on-device database using **Room Database**.
+
+### Implemented Features
+
+- Register income and expense transactions with category, account, date, and notes
+- View current balance, total income, and total expenses on the Dashboard
+- Transaction list with filter by type (All / Income / Expenses)
+- Edit and delete existing transactions
+- Reports with total spent per category and percentage progress bar
+- Default data automatically populated on first launch (categories and accounts)
+- Full data persistence with Room Database
+
+---
+
+## 🗂 Project Structure
 
 ```
 com.example.controlefinanceiro
 │
 ├── data/
 │   ├── entity/
-│   │   ├── Conta.kt              → tabela de contas bancárias
-│   │   ├── Categoria.kt          → tabela de categorias (Receita/Despesa)
-│   │   └── Transacao.kt          → tabela de transações com ForeignKeys
+│   │   ├── Account.kt            → accounts table
+│   │   ├── Category.kt           → categories table (Income/Expense)
+│   │   └── Transaction.kt        → transactions table with ForeignKeys
 │   │
 │   ├── dao/
-│   │   ├── ContaDao.kt           → queries de Conta
-│   │   ├── CategoriaDao.kt       → queries de Categoria
-│   │   └── TransacaoDao.kt       → queries de Transação (SUM, GROUP BY, LIMIT)
+│   │   ├── AccountDao.kt         → Account queries
+│   │   ├── CategoryDao.kt        → Category queries
+│   │   └── TransactionDao.kt     → Transaction queries (SUM, GROUP BY, LIMIT)
 │   │
 │   ├── db/
-│   │   └── AppDatabase.kt        → configuração do banco, Singleton, Migration
+│   │   └── AppDatabase.kt        → database setup, Singleton, Migration
 │   │
 │   └── repository/
-│       └── FinanceiroRepository.kt → camada de acesso a dados, isola o banco da UI
+│       └── FinanceRepository.kt  → data access layer, isolates database from UI
 │
 ├── ui/
 │   ├── theme/
-│   │   ├── Color.kt              → paleta de cores do app
-│   │   ├── Theme.kt              → MaterialTheme com esquema de cores
-│   │   └── Type.kt               → tipografia
+│   │   ├── Color.kt              → app color palette
+│   │   ├── Theme.kt              → MaterialTheme with color scheme
+│   │   └── Type.kt               → typography
 │   │
 │   ├── splash/
-│   │   └── SplashScreen.kt       → tela inicial com animação de fade
+│   │   └── SplashScreen.kt       → initial screen with fade animation
 │   │
 │   ├── dashboard/
-│   │   ├── DashboardScreen.kt    → tela de resumo financeiro
-│   │   └── DashboardViewModel.kt → estado do dashboard com combine de Flows
+│   │   ├── DashboardScreen.kt    → financial summary screen
+│   │   └── DashboardViewModel.kt → dashboard state with combined Flows
 │   │
-│   ├── transacao/
-│   │   ├── FormularioScreen.kt   → cadastro e edição de transações
-│   │   ├── FormularioViewModel.kt→ validação e persistência do formulário
-│   │   ├── TransacoesScreen.kt   → listagem com filtros
-│   │   └── TransacoesViewModel.kt→ lógica de filtro por tipo
+│   ├── transaction/
+│   │   ├── FormScreen.kt         → create and edit transactions
+│   │   ├── FormViewModel.kt      → form validation and persistence
+│   │   ├── TransactionsScreen.kt → list with filters
+│   │   └── TransactionsViewModel.kt → filter logic by type
 │   │
-│   └── relatorios/
-│       ├── RelatoriosScreen.kt   → relatório por categoria com barra de progresso
-│       └── RelatoriosViewModel.kt→ agrupamento e cálculo de percentuais
+│   └── reports/
+│       ├── ReportsScreen.kt      → category report with progress bar
+│       └── ReportsViewModel.kt   → grouping and percentage calculation
 │
 ├── navigation/
-│   └── AppNavigation.kt          → rotas do app com objeto Routes
+│   └── AppNavigation.kt          → app routes with Routes object
 │
 ├── util/
-│   └── Converters.kt             → TypeConverter Date ↔ Long para o Room
+│   └── Converters.kt             → TypeConverter Date ↔ Long for Room
 │
-├── FinanceiroApplication.kt      → inicialização do banco e dados padrão
+├── FinanceApplication.kt         → database initialization and default data
 └── MainActivity.kt               → NavHost + Bottom Navigation
 ```
 
 ---
 
-## 🧠 Tecnologias utilizadas
+## 🧠 Technologies
 
-| Tecnologia | Versão | Uso |
+| Technology | Version | Usage |
 |---|---|---|
-| Kotlin | 2.0.21 | Linguagem principal |
-| Jetpack Compose | BOM 2024.09 | Interface declarativa |
-| Room Database | 2.6.1 | Banco de dados local |
-| KSP | 2.0.21-1.0.28 | Processamento de anotações do Room |
-| Navigation Compose | 2.7.7 | Navegação entre telas |
-| ViewModel | 2.7.0 | Gerenciamento de estado |
-| Kotlin Coroutines | 1.7.3 | Operações assíncronas |
-| Kotlin Flow | - | Streams reativos |
-| Material 3 | - | Componentes de UI |
+| Kotlin | 2.0.21 | Main language |
+| Jetpack Compose | BOM 2024.09 | Declarative UI |
+| Room Database | 2.6.1 | Local database |
+| KSP | 2.0.21-1.0.28 | Room annotation processing |
+| Navigation Compose | 2.7.7 | Screen navigation |
+| ViewModel | 2.7.0 | State management |
+| Kotlin Coroutines | 1.7.3 | Async operations |
+| Kotlin Flow | - | Reactive streams |
+| Material 3 | - | UI components |
 
 ---
 
-## ScreenShots
+## Screenshots
 
 
 
-## 🏗 Decisões Técnicas
+---
 
-### 1. Jetpack Compose em vez de XML
-A interface foi construída 100% com **Jetpack Compose**, eliminando a necessidade de arquivos XML de layout, `ViewBinding` e `RecyclerView Adapters`. Cada tela é uma função `@Composable`, tornando o código mais conciso e declarativo.
+## 🏗 Technical Decisions
 
-### 2. KSP em vez de KAPT
-O projeto utiliza **KSP (Kotlin Symbol Processing)** para processar as anotações do Room, em substituição ao KAPT. O KSP é mais rápido, consome menos memória e é a abordagem recomendada para projetos modernos em Kotlin.
+### 1. Jetpack Compose instead of XML
+The UI was built 100% with **Jetpack Compose**, eliminating the need for XML layout files, `ViewBinding`, and `RecyclerView Adapters`. Each screen is a `@Composable` function, making the code more concise and declarative.
 
-### 3. Arquitetura MVVM com Repository Pattern
-O app segue a arquitetura **MVVM (Model-View-ViewModel)** recomendada pelo Google:
-- A **UI** (Compose) observa o estado do ViewModel e nunca acessa o banco diretamente
-- O **ViewModel** expõe `StateFlow` com o estado da tela e delega operações ao Repository
-- O **Repository** centraliza o acesso aos dados e isola os DAOs da camada de UI
-- Os **DAOs** declaram as queries SQL que o Room implementa automaticamente
+### 2. KSP instead of KAPT
+The project uses **KSP (Kotlin Symbol Processing)** to process Room annotations, replacing KAPT. KSP is faster, uses less memory, and is the recommended approach for modern Kotlin projects.
+
+### 3. MVVM Architecture with Repository Pattern
+The app follows the **MVVM (Model-View-ViewModel)** architecture recommended by Google:
+- The **UI** (Compose) observes the ViewModel state and never accesses the database directly
+- The **ViewModel** exposes `StateFlow` with the screen state and delegates operations to the Repository
+- The **Repository** centralizes data access and isolates DAOs from the UI layer
+- **DAOs** declare SQL queries that Room implements automatically
 
 ### 4. StateFlow + collectAsState
-O estado das telas é gerenciado com `StateFlow`, que sempre possui um valor atual. Na UI, `collectAsState()` converte o `StateFlow` em um `State` do Compose, garantindo recomposição automática sempre que os dados mudarem.
+Screen state is managed with `StateFlow`, which always holds a current value. In the UI, `collectAsState()` converts the `StateFlow` into a Compose `State`, ensuring automatic recomposition whenever data changes.
 
-### 5. Flow reativo nos DAOs
-Os DAOs retornam `Flow<T>` em vez de valores simples. Isso garante que a UI seja atualizada automaticamente sempre que o banco de dados for modificado, sem necessidade de recarregar manualmente os dados.
+### 5. Reactive Flow in DAOs
+DAOs return `Flow<T>` instead of simple values. This ensures the UI updates automatically whenever the database is modified, without manually reloading data.
 
 ### 6. Migration
-O banco foi criado na **versão 1** sem o campo `observacao` na tabela de transações. Uma **Migration 1→2** foi implementada para adicionar esse campo via `ALTER TABLE`, simulando um cenário real de evolução do esquema sem perda de dados.
+The database was created at **version 1** without the `notes` field in the transactions table. A **Migration 1→2** was implemented to add this field via `ALTER TABLE`, simulating a real schema evolution scenario without data loss.
 
-### 7. TypeConverter para Date
-O Room não suporta o tipo `java.util.Date` nativamente. A classe `Converters` implementa a conversão `Date ↔ Long` (Unix timestamp em milissegundos), registrada no `AppDatabase` via `@TypeConverters`.
+### 7. TypeConverter for Date
+Room does not natively support `java.util.Date`. The `Converters` class implements `Date ↔ Long` conversion (Unix timestamp in milliseconds), registered in `AppDatabase` via `@TypeConverters`.
 
-### 8. Singleton no AppDatabase
-O banco de dados é instanciado uma única vez usando o padrão **Singleton** com `@Volatile` e bloco `synchronized`, garantindo thread-safety e evitando múltiplas conexões simultâneas.
+### 8. Singleton in AppDatabase
+The database is instantiated only once using the **Singleton** pattern with `@Volatile` and a `synchronized` block, ensuring thread-safety and preventing multiple simultaneous connections.
 
-### 9. Dados iniciais com first()
-Ao iniciar o app pela primeira vez, categorias e contas padrão são inseridas automaticamente. A verificação usa `.first()` no Flow para ler o estado atual do banco uma única vez, sem manter uma coleta ativa desnecessária.
+### 9. Initial Data with first()
+On the first app launch, default categories and accounts are automatically inserted. The check uses `.first()` on the Flow to read the current database state once, without maintaining an unnecessary active collection.
 
-### 10. Bottom Navigation condicional
-A barra de navegação inferior só é exibida nas telas principais (Dashboard, Transações e Relatórios). Nas telas de Splash e Formulário ela é ocultada, verificando a rota atual via `currentBackStackEntryAsState()`.
+### 10. Conditional Bottom Navigation
+The bottom navigation bar is only displayed on the main screens (Dashboard, Transactions, and Reports). It is hidden on the Splash and Form screens by checking the current route via `currentBackStackEntryAsState()`.
 
 ---
 
-## 🗃 Estrutura do Banco de Dados
+## 🗃 Database Structure
 
 ```
 ┌─────────────┐         ┌──────────────────────┐         ┌──────────────┐
-│   contas    │         │      transacoes       │         │  categorias  │
+│  accounts   │         │     transactions      │         │  categories  │
 │─────────────│         │──────────────────────│         │──────────────│
-│ id (PK)     │◄────────│ contaId (FK)          │────────►│ id (PK)      │
-│ nome        │         │ categoriaId (FK)       │         │ nome         │
-└─────────────┘         │ id (PK)               │         │ tipo         │
-                        │ descricao             │         └──────────────┘
-                        │ valor                 │
-                        │ tipo                  │
-                        │ data                  │
-                        │ observacao (nullable) │
+│ id (PK)     │◄────────│ accountId (FK)        │────────►│ id (PK)      │
+│ name        │         │ categoryId (FK)        │         │ name         │
+└─────────────┘         │ id (PK)               │         │ type         │
+                        │ description           │         └──────────────┘
+                        │ amount                │
+                        │ type                  │
+                        │ date                  │
+                        │ notes (nullable)      │
                         └──────────────────────┘
 ```
 
-### Relacionamentos
-- **1 Conta → N Transações** (ForeignKey com CASCADE)
-- **1 Categoria → N Transações** (ForeignKey com CASCADE)
+### Relationships
+- **1 Account → N Transactions** (ForeignKey with CASCADE)
+- **1 Category → N Transactions** (ForeignKey with CASCADE)
 
 ---
 
-## 🚀 Como executar
+## 🚀 How to Run
 
-1. Clone o repositório
-2. Abra no **Android Studio Hedgehog** ou superior
-3. Aguarde o Gradle sync
-4. Execute em um emulador ou dispositivo com **Android 8.0+ (API 26)**
-
----
-
-## ✅ Requisitos do Desafio Atendidos
-
-- [x] Room Database com Entities, DAOs e AppDatabase
-- [x] TypeConverter para o tipo Date
-- [x] CRUD completo (Create, Read, Update, Delete)
-- [x] Relacionamentos 1-N entre entidades
-- [x] Migration implementada (versão 1 → 2)
-- [x] Consultas agregadas (SUM, GROUP BY)
-- [x] Banco isolado da camada de UI via Repository
-- [x] 5 telas: Splash, Dashboard, Transações, Formulário e Relatórios
-- [x] Filtro de transações por tipo
-- [x] Relatório por categoria
+1. Clone the repository
+2. Open in **Android Studio Hedgehog** or later
+3. Wait for Gradle sync
+4. Run on an emulator or device with **Android 8.0+ (API 26)**
 
 ---
 
-*Desenvolvido por Jessica Cafezeiro como parte da Formação Android — Desafio 3*
+## ✅ Challenge Requirements Met
+
+- [x] Room Database with Entities, DAOs and AppDatabase
+- [x] TypeConverter for Date type
+- [x] Full CRUD (Create, Read, Update, Delete)
+- [x] 1-N relationships between entities
+- [x] Migration implemented (version 1 → 2)
+- [x] Aggregate queries (SUM, GROUP BY)
+- [x] Database isolated from UI layer via Repository
+- [x] 5 screens: Splash, Dashboard, Transactions, Form, and Reports
+- [x] Transaction filter by type
+- [x] Category-based report
+
+---
+
+*Developed by Jessica Cafezeiro as part of Android Training — Challenge 3*
