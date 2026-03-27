@@ -7,9 +7,12 @@ import com.jesscafezeiro.financialmanagement.data.entity.Category
 import com.jesscafezeiro.financialmanagement.data.entity.Account
 import com.jesscafezeiro.financialmanagement.data.entity.Transaction
 import com.jesscafezeiro.financialmanagement.data.repository.FinancialRepository
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.flatMapLatest
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
@@ -35,8 +38,12 @@ class FormViewModel(
     private val _uiState = MutableStateFlow(FormUiState())
     val uiState: StateFlow<FormUiState> = _uiState
 
+    @OptIn(ExperimentalCoroutinesApi::class)
     val categories: StateFlow<List<Category>> =
-        repository.categoriesByType(uiState.value.type)
+        _uiState.map { it.type }
+            .flatMapLatest { type ->
+                repository.categoriesByType(type)
+            }
             .stateIn(
                 scope = viewModelScope,
                 started = SharingStarted.WhileSubscribed(5000),
@@ -57,21 +64,22 @@ class FormViewModel(
             repository.allTransactions.collect { list ->
                 val transaction = list.find { it.id == id }
                 transaction?.let { t ->
-                    val category = categories.value.find { it.id == t.categoryId }
-                    val account = accounts.value.find { it.id == t.accountId }
+                    // É importante carregar as listas primeiro ou carregar os IDs e buscar depois
                     _uiState.update { state ->
                         state.copy(
                             id = t.id,
                             description = t.description,
                             amount = t.amount.toString(),
                             type = t.type,
-                            selectedCategory = category,
-                            selectedAccount = account,
                             date = t.date,
                             note = t.note ?: "",
                             isEditing = true
                         )
                     }
+                    // Após atualizar o estado básico, buscamos a categoria e conta nas listas atuais
+                    val category = categories.value.find { it.id == t.categoryId }
+                    val account = accounts.value.find { it.id == t.accountId }
+                    _uiState.update { it.copy(selectedCategory = category, selectedAccount = account) }
                 }
             }
         }
@@ -79,7 +87,9 @@ class FormViewModel(
 
     fun onDescriptionChange(value: String) = _uiState.update { it.copy(description = value) }
     fun onAmountChange(value: String) = _uiState.update { it.copy(amount = value)}
-    fun onTypeChange(value: String) = _uiState.update { it.copy(type = value) }
+    fun onTypeChange(value: String) {
+        _uiState.update { it.copy(type = value, selectedCategory = null) }
+    }
     fun onCategoryChange(value: Category?) = _uiState.update { it.copy(selectedCategory = value) }
     fun onAccountChange(value: Account?) = _uiState.update { it.copy(selectedAccount = value) }
     fun onDataChange(value: Date) = _uiState.update { it.copy(date = value) }
