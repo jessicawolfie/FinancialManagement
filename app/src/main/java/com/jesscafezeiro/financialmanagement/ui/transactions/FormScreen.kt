@@ -1,4 +1,4 @@
-package jesscafezeiro.ui.transactions
+package com.jesscafezeiro.financialmanagement.ui.transactions
 
 import android.app.DatePickerDialog
 import android.content.Context
@@ -27,7 +27,7 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
-import jesscafezeiro.ui.theme.*
+import com.jesscafezeiro.financialmanagement.ui.theme.*
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -130,7 +130,7 @@ fun FormScreen(
                     )
                 }
             }
-            
+
             Card(
                 shape = RoundedCornerShape(12.dp),
                 colors = CardDefaults.cardColors(containerColor = Branco)

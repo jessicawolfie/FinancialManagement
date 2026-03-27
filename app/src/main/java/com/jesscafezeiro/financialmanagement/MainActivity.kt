@@ -27,11 +27,10 @@ import com.jesscafezeiro.financialmanagement.ui.dashboard.DashboardViewModel
 import com.jesscafezeiro.financialmanagement.ui.reports.ReportsScreen
 import com.jesscafezeiro.financialmanagement.ui.reports.ReportsViewModel
 import com.jesscafezeiro.financialmanagement.ui.splash.SplashScreen
-import com.jesscafezeiro.financialmanagement.ui.theme.ControleFinanceiroTheme
+import com.jesscafezeiro.financialmanagement.ui.theme.FinancialManagementTheme
 import com.jesscafezeiro.financialmanagement.ui.transactions.FormScreen
 import com.jesscafezeiro.financialmanagement.ui.transactions.FormViewModel
 import com.jesscafezeiro.financialmanagement.ui.transactions.TransactionsScreen
-import com.jesscafezeiro.financialmanagement.ui.transactions.TransactionsViewModel
 
 data class NavigationItem(
     val route: String,
@@ -44,7 +43,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
-            ControleFinanceiroTheme {
+            FinancialManagementTheme{
                 AppNavigation()
             }
         }

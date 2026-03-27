@@ -1,10 +1,10 @@
-package jesscafezeiro.ui.transactions
+package com.jesscafezeiro.financialmanagement
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
-import jesscafezeiro.data.entity.Transaction
-import jesscafezeiro.data.repository.FinancialRepository
+import com.jesscafezeiro.financialmanagement.data.entity.Transaction
+import com.jesscafezeiro.financialmanagement.data.repository.FinancialRepository
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow

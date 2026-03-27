@@ -15,11 +15,15 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import com.jesscafezeiro.financialmanagement.TransactionFilter
+import com.jesscafezeiro.financialmanagement.TransactionsViewModel
 import com.jesscafezeiro.financialmanagement.data.entity.Transaction
 import com.jesscafezeiro.financialmanagement.navigation.Routes
 import com.jesscafezeiro.financialmanagement.ui.dashboard.formatDate
 import com.jesscafezeiro.financialmanagement.ui.dashboard.formatCurrency
 import com.jesscafezeiro.financialmanagement.ui.theme.*
+import androidx.compose.foundation.lazy.items
+
 
 @Composable
 fun TransactionsScreen(
