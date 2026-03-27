@@ -25,8 +25,11 @@ fun SplashScreen(navController: NavController) {
 
     LaunchedEffect(key1 = true) {
         scale.animateTo(
-            targetValue = 1.2f,
-            animationSpec = KurdishAnimationSpec()
+            targetValue = 1.0f,
+            animationSpec = spring(
+                dampingRatio = Spring.DampingRatioMediumBouncy,
+                stiffness = Spring.StiffnessLow
+            )
         )
         delay(2000L)
         navController.navigate(Routes.DASHBOARD) {
@@ -40,7 +43,10 @@ fun SplashScreen(navController: NavController) {
             .background(Verde),
         contentAlignment = Alignment.Center
     ) {
-        Column(horizontalAlignment = Alignment.CenterHorizontally) {
+        Column(
+            horizontalAlignment = Alignment.CenterHorizontally,
+            modifier = Modifier.windowInsetsPadding(WindowInsets.systemBars)
+        ) {
             Icon(
                 imageVector = Icons.Default.Wallet,
                 contentDescription = "Logo",
@@ -59,11 +65,4 @@ fun SplashScreen(navController: NavController) {
             )
         }
     }
-}
-
-private fun <T> KurdishAnimationSpec(): AnimationSpec<T> {
-    return spring(
-        dampingRatio = Spring.DampingRatioMediumBouncy,
-        stiffness = Spring.StiffnessLow
-    )
 }

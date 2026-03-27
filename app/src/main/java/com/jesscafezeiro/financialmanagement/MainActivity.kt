@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.List
@@ -31,6 +32,8 @@ import com.jesscafezeiro.financialmanagement.ui.theme.FinancialManagementTheme
 import com.jesscafezeiro.financialmanagement.ui.transactions.FormScreen
 import com.jesscafezeiro.financialmanagement.ui.transactions.FormViewModel
 import com.jesscafezeiro.financialmanagement.ui.transactions.TransactionsScreen
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.ui.unit.dp
 
 data class NavigationItem(
     val route: String,
@@ -43,7 +46,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
-            FinancialManagementTheme{
+            FinancialManagementTheme {
                 AppNavigation()
             }
         }
@@ -94,68 +97,73 @@ fun AppNavigation() {
             }
         }
     ) { paddingValues ->
-        NavHost(
-            navController = navController,
-            startDestination = Routes.SPLASH,
-            modifier = Modifier.padding(paddingValues)
+        Box(
+            modifier = Modifier.padding(
+                if (currentRoute == Routes.SPLASH) PaddingValues(all = 0.dp) else paddingValues
+            )
         ) {
-            composable(Routes.SPLASH) {
-                SplashScreen(navController = navController)
-            }
+            NavHost(
+                navController = navController,
+                startDestination = Routes.SPLASH
+            ) {
+                composable(Routes.SPLASH) {
+                    SplashScreen(navController = navController)
+                }
 
-            composable(Routes.DASHBOARD) {
-                val context = LocalContext.current
-                val app = context.applicationContext as FinancialApplication
-                val viewModel: DashboardViewModel = viewModel(
-                    factory = DashboardViewModel.factory(app.repository)
-                )
-                DashboardScreen(
-                    navController = navController,
-                    viewModel = viewModel
-                )
-            }
+                composable(Routes.DASHBOARD) {
+                    val context = LocalContext.current
+                    val app = context.applicationContext as FinancialApplication
+                    val viewModel: DashboardViewModel = viewModel(
+                        factory = DashboardViewModel.factory(app.repository)
+                    )
+                    DashboardScreen(
+                        navController = navController,
+                        viewModel = viewModel
+                    )
+                }
 
-            composable(Routes.TRANSACTIONS) {
-                val context = LocalContext.current
-                val app = context.applicationContext as FinancialApplication
-                val viewModel: TransactionsViewModel = viewModel(
-                    factory = TransactionsViewModel.factory(app.repository)
-                )
-                TransactionsScreen(
-                    navController = navController,
-                    viewModel = viewModel
-                )
-            }
+                composable(Routes.TRANSACTIONS) {
+                    val context = LocalContext.current
+                    val app = context.applicationContext as FinancialApplication
+                    val viewModel: TransactionsViewModel = viewModel(
+                        factory = TransactionsViewModel.factory(app.repository)
+                    )
+                    TransactionsScreen(
+                        navController = navController,
+                        viewModel = viewModel
+                    )
+                }
 
-            composable(
-                route = Routes.FORM,
-                arguments = listOf(
-                    navArgument("id") { type = NavType.LongType }
-                )
-            ) { backStackEntry ->
-                val id = backStackEntry.arguments?.getLong("id") ?: -1L
-                val context = LocalContext.current
-                val app = context.applicationContext as FinancialApplication
-                val viewModel: FormViewModel = viewModel(
-                    factory = FormViewModel.factory(app.repository)
-                )
-                FormScreen(
-                    navController = navController,
-                    transactionId = id,
-                    viewModel = viewModel
-                )
-            }
+                composable(
+                    route = Routes.FORM,
+                    arguments = listOf(
+                        navArgument("id") { type = NavType.LongType }
+                    )
+                ) { backStackEntry ->
+                    val id = backStackEntry.arguments?.getLong("id") ?: -1L
+                    val context = LocalContext.current
+                    val app = context.applicationContext as FinancialApplication
+                    val viewModel: FormViewModel = viewModel(
+                        factory = FormViewModel.factory(app.repository)
+                    )
+                    FormScreen(
+                        navController = navController,
+                        transactionId = id,
+                        viewModel = viewModel
+                    )
+                }
 
-            composable(Routes.REPORTS) {
-                val context = LocalContext.current
-                val app = context.applicationContext as FinancialApplication
-                val viewModel: ReportsViewModel = viewModel(
-                    factory = ReportsViewModel.factory(app.repository)
-                )
-                ReportsScreen(
-                    navController = navController,
-                    viewModel = viewModel
-                )
+                composable(Routes.REPORTS) {
+                    val context = LocalContext.current
+                    val app = context.applicationContext as FinancialApplication
+                    val viewModel: ReportsViewModel = viewModel(
+                        factory = ReportsViewModel.factory(app.repository)
+                    )
+                    ReportsScreen(
+                        navController = navController,
+                        viewModel = viewModel
+                    )
+                }
             }
         }
     }

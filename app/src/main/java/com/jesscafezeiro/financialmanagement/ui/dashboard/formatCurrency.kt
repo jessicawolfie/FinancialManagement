@@ -4,6 +4,6 @@ import java.text.NumberFormat
 import java.util.*
 
 fun formatCurrency(amount: Double): String {
-    val format = NumberFormat.getCurrencyInstance(Locale("pt", "BR"))
+    val format = NumberFormat.getCurrencyInstance(Locale("en", "US"))
     return format.format(amount)
 }
