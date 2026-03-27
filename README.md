@@ -1,4 +1,4 @@
-# 💰 Finance Control
+# 💰 Financial Management
 
 Personal finance control Android application developed as part of **Android Training — Challenge 3**.
 
@@ -6,7 +6,7 @@ Personal finance control Android application developed as part of **Android Trai
 
 ## 📱 Description
 
-**Finance Control** is an app that allows users to register, view, and analyze income and expenses with local data persistence. The main goal of this challenge was the transition from in-memory storage to a real on-device database using **Room Database**.
+**Financial Management** is an app that allows users to register, view, and analyze income and expenses with local data persistence. The main goal of this challenge was the transition from in-memory storage to a real on-device database using **Room Database**.
 
 ### Implemented Features
 
@@ -23,7 +23,7 @@ Personal finance control Android application developed as part of **Android Trai
 ## 🗂 Project Structure
 
 ```
-com.example.controlefinanceiro
+com.jesscafezeiro.financialmanagement
 │
 ├── data/
 │   ├── entity/
@@ -32,49 +32,49 @@ com.example.controlefinanceiro
 │   │   └── Transaction.kt        → transactions table with ForeignKeys
 │   │
 │   ├── dao/
-│   │   ├── AccountDao.kt         → Account queries
-│   │   ├── CategoryDao.kt        → Category queries
+│   │   ├── AccountDao            → Account queries
+│   │   ├── CategoryDao           → Category queries
 │   │   └── TransactionDao.kt     → Transaction queries (SUM, GROUP BY, LIMIT)
 │   │
 │   ├── db/
-│   │   └── AppDatabase.kt        → database setup, Singleton, Migration
+│   │   └── AppDatabase           → database setup, Singleton, Migration
 │   │
 │   └── repository/
-│       └── FinanceRepository.kt  → data access layer, isolates database from UI
+│       └── FinancialRepository   → data access layer, isolates database from UI
+│
+├── navigation/
+│   └── Routes                    → app routes object/sealed classes
 │
 ├── ui/
+│   ├── dashboard/
+│   │   ├── DashboardScreen.kt    → financial summary screen
+│   │   ├── DashboardViewModel.kt → dashboard state with combined Flows
+│   │   └── formatCurrency.kt     → currency formatting utility
+│   │
+│   ├── reports/
+│   │   ├── ReportsScreen.kt      → category report with progress bar
+│   │   └── ReportsViewModel.kt   → grouping and percentage calculation
+│   │
+│   ├── splash/
+│   │   └── SplashScreen.kt       → initial screen with fade animation
+│   │
 │   ├── theme/
 │   │   ├── Color.kt              → app color palette
 │   │   ├── Theme.kt              → MaterialTheme with color scheme
 │   │   └── Type.kt               → typography
 │   │
-│   ├── splash/
-│   │   └── SplashScreen.kt       → initial screen with fade animation
-│   │
-│   ├── dashboard/
-│   │   ├── DashboardScreen.kt    → financial summary screen
-│   │   └── DashboardViewModel.kt → dashboard state with combined Flows
-│   │
-│   ├── transaction/
-│   │   ├── FormScreen.kt         → create and edit transactions
-│   │   ├── FormViewModel.kt      → form validation and persistence
-│   │   ├── TransactionsScreen.kt → list with filters
-│   │   └── TransactionsViewModel.kt → filter logic by type
-│   │
-│   └── reports/
-│       ├── ReportsScreen.kt      → category report with progress bar
-│       └── ReportsViewModel.kt   → grouping and percentage calculation
-│
-├── navigation/
-│   └── AppNavigation.kt          → app routes with Routes object
+│   └── transactions/
+│       ├── FormScreen.kt         → create and edit transactions
+│       ├── FormViewModel.kt      → form validation and persistence
+│       ├── TransactionsScreen.kt → list with filters
+│       └── TransactionsViewModel.kt → filter logic by type
 │
 ├── util/
 │   └── Converters.kt             → TypeConverter Date ↔ Long for Room
 │
-├── FinanceApplication.kt         → database initialization and default data
+├── FinancialApplication          → database initialization and default data
 └── MainActivity.kt               → NavHost + Bottom Navigation
 ```
-
 ---
 
 ## 🧠 Technologies
