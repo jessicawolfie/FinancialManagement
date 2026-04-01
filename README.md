@@ -1,6 +1,27 @@
-# 💰 Financial Management
+# 💰 Financial Management - Personal finance control Android application developed as part of **Android Training — Challenge 3**.
 
-Personal finance control Android application developed as part of **Android Training — Challenge 3**.
+## 🚨 Preciso da sua ajuda: Testadores para o Financial Management!
+
+Olá, pessoal! 👋
+
+Estou na reta final do desenvolvimento do meu novo aplicativo de Controle Financeiro Pessoal, o **Financial Management**, e preciso de **20 testadores** para me ajudar a cumprir os requisitos e liberar a versão final na Google Play Store.
+
+O processo do Google exige que o app fique instalado por **14 dias consecutivos**. Se você puder me dar essa força, dar uma olhadinha nas telas e me dar um feedback, eu agradeço demais! ❤️
+
+### 🛠️ Como participar (É super simples!)
+
+**1️⃣ Entre no grupo de testadores**
+O Google só libera o download para quem estiver na lista oficial. 
+👉 [Clique aqui para participar do grupo de testes](https://groups.google.com/g/financialm-testers) (basta selecionar "Participar do grupo").
+
+**2️⃣ Baixe o app na Play Store**
+Após entrar no grupo, o link para download estará liberado para a sua conta:
+👉 [Baixar Financial Management na Play Store](https://play.google.com/store/apps/details?id=com.jesscafezeiro.financialmanagement)
+
+---
+
+### 💡 Encontrou um bug ou tem uma sugestão?
+Os feedbacks são essenciais para essa fase de testes! Sinta-se à vontade para reportar qualquer problema me enviando um e-mail: cafezeiro.dev@gmail.com
 
 ---
 
