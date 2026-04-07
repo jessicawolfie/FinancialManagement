@@ -8,8 +8,11 @@ import com.jesscafezeiro.financialmanagement.data.entity.Account
 import com.jesscafezeiro.financialmanagement.data.entity.Category
 import com.jesscafezeiro.financialmanagement.data.entity.Transaction
 import kotlinx.coroutines.flow.Flow
+import javax.inject.Inject
+import javax.inject.Singleton
 
-class FinancialRepository(
+@Singleton
+class FinancialRepository @Inject constructor(
     private val accountDao: AccountDao,
     private val categoryDao: CategoryDao,
     private val transactionDao: TransactionDao
